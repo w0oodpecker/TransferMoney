@@ -49,11 +49,11 @@ public class TransferMoneyController {
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (ErrorInputData exc) {
             AppError appError = new AppError(exc.getMessage());
-            logger.log(appError.toString() + " " + confirmOperationAttr.getOperationId());
+            logger.log(appError.toString() + " " + confirmOperationAttr.toString());
             return new ResponseEntity<>(appError, HttpStatus.BAD_REQUEST);
         } catch (ErrorTransfer exc) {
             AppError appError = new AppError(exc.getMessage());
-            logger.log(appError.toString() + " " + confirmOperationAttr.getOperationId());
+            logger.log(appError.toString() + " " + confirmOperationAttr.toString());
             return new ResponseEntity<>(appError, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

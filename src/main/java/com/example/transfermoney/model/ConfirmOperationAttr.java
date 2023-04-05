@@ -17,4 +17,9 @@ public class ConfirmOperationAttr {
     public String getCode() {
         return code;
     }
+
+    @Override
+    public String toString(){
+        return "[operationId]" + this.operationId;
+    }
 }
