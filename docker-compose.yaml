@@ -1,0 +1,8 @@
+version: "1.0"
+
+services:
+  authapp:
+    image: "transfermoneyapp:latest"
+    ports:
+      - 5500:5500
+    build: ./
