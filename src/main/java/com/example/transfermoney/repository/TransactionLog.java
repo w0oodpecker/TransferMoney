@@ -1,11 +1,10 @@
 package com.example.transfermoney.repository;
 
-import com.example.transfermoney.model.Result;
-import com.example.transfermoney.model.TransferMoneyAttr;
-import com.example.transfermoney.model.Tools;
-import com.example.transfermoney.model.Transaction;
+import com.example.transfermoney.model.*;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class TransactionLog {
 
@@ -19,10 +18,11 @@ public class TransactionLog {
     private final int RIGHTLIMITVARCODE = 48; // letter 'z'
     private final int TARGETLENGHTSTRINGVARCODE = 4;
 
-    private HashMap transactionMap;
+    //private HashMap transactionMap;
+    private static Map<String, Transaction> transactionMap;
 
     public TransactionLog() {
-        transactionMap = new HashMap<String, Transaction>();
+        transactionMap = new ConcurrentHashMap<>();
     }
 
     public Result addTransaction(TransferMoneyAttr transferMoneyAttr, int commission) {

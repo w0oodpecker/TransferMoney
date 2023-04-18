@@ -4,13 +4,16 @@ import com.example.transfermoney.model.Account;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class Accounts {
-    private HashMap cardsMap;
+    private static Map<String, Account> cardsMap;
+
 
     public Accounts() {
-        cardsMap = new HashMap<String, Account>();
+        cardsMap = new ConcurrentHashMap<>();
     }
 
     public void addAccount(String cardNumber,

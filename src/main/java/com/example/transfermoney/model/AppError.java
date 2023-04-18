@@ -27,5 +27,4 @@ public class AppError {
     public String toString(){
             return "[id]" + this.id + " [Error]" + this.message;
     }
-
 }
