@@ -19,6 +19,7 @@ public class TransactionLogTest {
         String currency = "RUS";
         Amount amount = new Amount(value, currency);
         int commission = 1;
+        int initialCounterId = 0;
 
         String cardFromNumber = "1111111111111111";
         String cardFromValidTill = "01/25";
@@ -26,7 +27,7 @@ public class TransactionLogTest {
         String cardToNumber = "2222222222222222";
         TransferMoneyAttr transferMoneyAttr = new TransferMoneyAttr(cardFromNumber,
                 cardFromValidTill, cardFromCVV,cardToNumber, amount);
-        TransactionLog transactionLog = new TransactionLog();
+        TransactionLog transactionLog = new TransactionLog(initialCounterId);
         Result result = transactionLog.addTransaction(transferMoneyAttr, commission);
 
         Transaction transaction = transactionLog.getTransaction(result.getOperationId());
@@ -47,6 +48,7 @@ public class TransactionLogTest {
         String currency = "RUS";
         Amount amount = new Amount(value, currency);
         int commission = 1;
+        int initialCounterId = 0;
 
         String cardFromNumber = "1111111111111111";
         String cardFromValidTill = "01/25";
@@ -54,7 +56,7 @@ public class TransactionLogTest {
         String cardToNumber = "2222222222222222";
         TransferMoneyAttr transferMoneyAttr = new TransferMoneyAttr(cardFromNumber,
                 cardFromValidTill, cardFromCVV,cardToNumber, amount);
-        TransactionLog transactionLog = new TransactionLog();
+        TransactionLog transactionLog = new TransactionLog(initialCounterId);
         Result result = transactionLog.addTransaction(transferMoneyAttr, commission);
 
 

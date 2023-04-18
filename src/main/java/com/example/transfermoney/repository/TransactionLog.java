@@ -1,40 +1,34 @@
 package com.example.transfermoney.repository;
 
 import com.example.transfermoney.model.*;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class TransactionLog {
-
-    /*для operationID*/
-    private final int LEFTLIMITOPERATIONID = 48; // numeral '0'
-    private final int RIGHTLIMITOPERATIONID = 57; // letter '9'
-    private final int TARGETLENGHTSTRINGOPERATIONID = 6;
 
     /*для varificationCode*/
     private final int LEFTLIMITVARCODE = 48; // numeral '0'
     private final int RIGHTLIMITVARCODE = 48; // letter 'z'
     private final int TARGETLENGHTSTRINGVARCODE = 4;
 
-    //private HashMap transactionMap;
+    /*для счетчика номера транзакции*/
+    private final int DELTARANGE = 1;
+    private AtomicLong operationIdCounter;
+    private final String formatOperationId = "%06d";
+
     private static Map<String, Transaction> transactionMap;
 
-    public TransactionLog() {
+    public TransactionLog(long initialValue) {
         transactionMap = new ConcurrentHashMap<>();
+        operationIdCounter = new AtomicLong(initialValue);
     }
 
     public Result addTransaction(TransferMoneyAttr transferMoneyAttr, int commission) {
-        while (true) {
-            String operationId = Tools.getRandomCode(LEFTLIMITOPERATIONID, RIGHTLIMITOPERATIONID, TARGETLENGHTSTRINGOPERATIONID);
+            String operationId = String.format(formatOperationId,operationIdCounter.addAndGet(DELTARANGE));
             String code = Tools.getRandomCode(LEFTLIMITVARCODE, RIGHTLIMITVARCODE, TARGETLENGHTSTRINGVARCODE);
-            if (!transactionMap.containsKey(operationId)) {
-                transactionMap.put(operationId, new Transaction(operationId, transferMoneyAttr,
-                        code, 0, commission));
-                return new Result(operationId);
-            }
-        }
+            transactionMap.put(operationId, new Transaction(operationId, transferMoneyAttr, code, 0, commission));
+            return new Result(operationId);
     }
 
     public boolean isExistTransaction(String operationId) {

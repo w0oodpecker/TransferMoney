@@ -11,7 +11,8 @@ import com.example.transfermoney.repository.Accounts;
 @Service
 public class TransferMoneyService {
 
-    private int commission = 1;
+    private final int commission = 1; //Размер комиссии за перевод
+    private final int  initialCounterId = 0;
 
     public static final String NOTVALIDINPUTDATAMESSAGE = "Введенные реквезиты некорректны";
     public static final String NOTENOUGHBALANCEMESSAGE = "Недостаточный баланс";
@@ -25,7 +26,7 @@ public class TransferMoneyService {
 
     public TransferMoneyService() {
         accounts = new Accounts();
-        transactionLog = new TransactionLog();
+        transactionLog = new TransactionLog(initialCounterId);
         DataTest dataTest = new DataTest(accounts); // TODO: 3/31/2023 Удалить после интеграционного теста
     }
 
