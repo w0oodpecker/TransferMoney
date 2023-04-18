@@ -3,7 +3,7 @@ package com.example.transfermoney.service;
 import com.example.transfermoney.exeptions.ErrorInputData;
 import com.example.transfermoney.exeptions.ErrorTransfer;
 import com.example.transfermoney.model.*;
-import com.example.transfermoney.repository.DataTest;
+import com.example.transfermoney.data.Data;
 import com.example.transfermoney.repository.TransactionLog;
 import org.springframework.stereotype.Service;
 import com.example.transfermoney.repository.Accounts;
@@ -24,10 +24,11 @@ public class TransferMoneyService {
     private Accounts accounts;
     private TransactionLog transactionLog;
 
+
     public TransferMoneyService() {
         accounts = new Accounts();
         transactionLog = new TransactionLog(initialCounterId);
-        DataTest dataTest = new DataTest(accounts); // TODO: 3/31/2023 Удалить после интеграционного теста
+        Data data = new Data(accounts);
     }
 
 
